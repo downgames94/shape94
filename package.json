@@ -1,0 +1,12 @@
+{
+  "name": "shape94-platform",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cycle": "node scripts/update-cycles.js",
+    "admin": "node scripts/set-admin.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^13.4.0"
+  }
+}

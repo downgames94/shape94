@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101820">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Shape 94">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png"><meta name="description" content="Shape 94: treinamento e evolução personalizados."><meta name="shape94-platform" content="6.0">
+<title>Projeto Shape 94 · Treino guiado</title>
+<style>
+:root{--bg:#0c1218;--panel:#151f29;--panel2:#1c2935;--text:#f2f6f9;--muted:#9eacb9;--accent:#7be0a3;--line:#2b3a47;--warn:#ffd166;--blue:#83b9ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:84px}
+header{padding:22px 18px 18px;background:linear-gradient(140deg,#172c3b,#101820 70%);border-bottom:1px solid var(--line)}
+.kicker{color:var(--accent);font-size:11px;letter-spacing:2px;font-weight:800}.brand{font-size:25px;font-weight:900;letter-spacing:-.7px;margin:4px 0}.sub{color:var(--muted);font-size:13px}
+main{max-width:760px;margin:auto;padding:16px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;overflow-x:auto;background:#111a22;border-top:1px solid var(--line);padding:7px max(6px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom));}
+nav button{flex:1;min-width:64px;border:0;background:none;color:var(--muted);font-size:10px;padding:7px 3px}
+nav button b{display:block;font-size:19px;font-weight:500;margin-bottom:2px}nav button.active{color:var(--accent)}
+.page{display:none}.page.active{display:block}
+h2{font-size:21px;margin:8px 0 12px}h3{font-size:15px;margin:0 0 9px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px;margin:12px 0}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.metric{background:var(--panel2);padding:13px;border-radius:13px}.metric small{display:block;color:var(--muted);font-size:11px}.metric strong{font-size:23px;display:block;margin-top:4px}
+.muted{color:var(--muted)}.tiny{font-size:12px;color:var(--muted)}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+button,.btn{cursor:pointer}.primary{background:var(--accent);color:#092014;border:0;border-radius:11px;padding:11px 14px;font-weight:800}
+.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+input,select,textarea{width:100%;background:#0e171f;border:1px solid var(--line);border-radius:9px;padding:10px;color:var(--text);font:inherit;margin:4px 0 10px}
+label{font-size:12px;color:var(--muted);display:block}progress{width:100%;height:10px;accent-color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:13px}td,th{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--muted);font-size:11px}
+.tag{font-size:11px;padding:4px 8px;border-radius:20px;background:#20382d;color:var(--accent)}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}.check input{width:18px;margin:2px 0;accent-color:var(--accent)}
+.exercise{padding:11px 0;border-bottom:1px solid var(--line)}.exercise:last-child{border:0}
+.exercise input{width:78px;display:inline-block;margin:5px 4px 0 0;padding:7px}
+.workout-menu{display:grid;gap:9px;margin:12px 0}.workout-choice{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:13px;background:var(--panel);border:1px solid var(--line);border-radius:13px;color:var(--text)}.workout-choice>span:nth-child(2){flex:1}.workout-choice small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.workout-letter{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;background:#20382d;color:var(--accent);font-size:20px;font-weight:900}.runner{border:1px solid var(--accent);background:linear-gradient(145deg,#172a25,var(--panel));}.runner-clock{font-size:34px;font-weight:900;font-variant-numeric:tabular-nums;text-align:center;margin:8px 0}.set-dots{display:flex;gap:7px;margin:12px 0}.set-dot{height:7px;flex:1;border-radius:8px;background:var(--line)}.set-dot.done{background:var(--accent)}.runner-action{width:100%;padding:15px;font-size:16px;margin-top:8px}.exercise-big{font-size:22px;font-weight:900;margin:6px 0 3px}.runner-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.runner-fields input{margin-bottom:4px}
+.rest-float{position:fixed;z-index:30;right:14px;bottom:calc(88px + env(safe-area-inset-bottom));width:min(330px,calc(100vw - 28px));background:#17242e;border:1px solid var(--accent);border-radius:18px;padding:14px;box-shadow:0 16px 45px #0009}.rest-float-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.rest-float-clock{font-size:42px;font-weight:900;letter-spacing:1px;text-align:center;font-variant-numeric:tabular-nums;margin:6px 0}.rest-float-actions{display:flex;gap:8px}.rest-float-actions button{flex:1}.rest-mini{position:fixed;z-index:29;right:14px;bottom:calc(90px + env(safe-area-inset-bottom));background:#20382d;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:11px 15px;font-weight:900;box-shadow:0 8px 28px #0008}.exercise-demo{margin:12px 0;padding:10px;background:#0e171f;border:1px solid var(--line);border-radius:13px;text-align:center}.exercise-demo img{display:block;width:min(100%,320px);height:230px;object-fit:contain;margin:0 auto;border-radius:8px;background:#fff}.exercise-demo .tiny{margin-top:7px}.exercise-demo a{color:var(--blue)}
+.meal{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}.meal:last-child{border:0}
+.bar{height:9px;border-radius:20px;background:#273541;overflow:hidden}.bar span{height:100%;display:block;background:var(--accent)}
+.notice{border-left:3px solid var(--warn);padding:9px 11px;background:#292619;border-radius:7px;color:#f7e5ad;font-size:12px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:20px}
+@media(min-width:650px){main{padding:24px}.grid.three{grid-template-columns:repeat(3,1fr)}}
+</style></head>
+<body>
+<header><div class="kicker">SEU PAINEL DE TREINAMENTO</div><div class="brand">PROJETO SHAPE 94</div><div class="sub">Musculação • Alimentação econômica • Condicionamento</div></header>
+<main>
+<section id="inicio" class="page active">
+<h2>Visão geral</h2>
+<div class="grid">
+<div class="metric"><small>PESO ATUAL</small><strong id="dashWeight">82 kg</strong></div>
+<div class="metric"><small>META CALÓRICA INICIAL</small><strong>2.250 kcal</strong></div>
+<div class="metric"><small>PROTEÍNA / DIA</small><strong>165 g</strong></div>
+<div class="metric"><small>PRÓXIMO TREINO</small><strong id="nextWorkout">Treino A</strong></div>
+</div>
+<div class="card"><div class="row"><h3>Seu objetivo</h3><span class="tag">Recomposição</span></div><p class="muted">Reduzir gordura corporal enquanto preserva e desenvolve massa muscular, sem dietas extremas.</p><div class="grid three"><div><small class="muted">Idade</small><b>32 anos</b></div><div><small class="muted">Altura</small><b>173 cm</b></div><div><small class="muted">Experiência</small><b>Intermediário</b></div></div></div>
+<div class="card"><h3>Metas diárias</h3><div class="row"><span>Calorias</span><b>2.250 kcal</b></div><div class="bar"><span style="width:100%"></span></div><div class="row" style="margin-top:12px"><span>Proteína</span><b>165 g</b></div><div class="row"><span>Carboidratos</span><b>240 g</b></div><div class="row"><span>Gorduras</span><b>70 g</b></div><p class="tiny">Estimativas iniciais. Ajustar após 2–3 semanas conforme peso médio, cintura, desempenho e recuperação.</p></div>
+<div class="card"><h3>Acesso rápido</h3><div class="grid"><button class="secondary" onclick="show('treinos')">🏋️ Abrir treinos</button><button class="secondary" onclick="show('dieta')">🍚 Ver cardápio</button><button class="secondary" onclick="show('evolucao')">📈 Registrar evolução</button><button class="secondary" onclick="show('compras')">🛒 Lista econômica</button></div></div>
+<div class="notice">A estimativa de gasto diário é aproximada. O aplicativo não substitui avaliação de nutricionista ou profissional de educação física.</div>
+</section>
+
+<section id="treinos" class="page">
+<h2>Treinos</h2><p class="muted">Quatro sessões por ciclo de oito dias, ajustáveis à escala 12x36. Registre suas cargas e repetições.</p>
+<div class="workout-menu" id="workoutMenu">
+  <button class="workout-choice" onclick="startWorkout('A')"><span class="workout-letter">A</span><span><b>Superior 1</b><small>Peito, costas, ombros e braços</small></span><span>›</span></button>
+  <button class="workout-choice" onclick="startWorkout('B')"><span class="workout-letter">B</span><span><b>Inferior 1</b><small>Quadríceps, posteriores e panturrilhas</small></span><span>›</span></button>
+  <button class="workout-choice" onclick="startWorkout('C')"><span class="workout-letter">C</span><span><b>Superior 2</b><small>Costas, peito, ombros e braços</small></span><span>›</span></button>
+  <button class="workout-choice" onclick="startWorkout('D')"><span class="workout-letter">D</span><span><b>Inferior 2</b><small>Posteriores, glúteos e pernas</small></span><span>›</span></button>
+</div>
+<div class="card" id="sessionTimerCard">
+  <div class="row"><h3>⏱️ Cronômetro geral</h3><span class="tag" id="sessionStatus">Não iniciado</span></div>
+  <div class="metric" style="text-align:center;margin:10px 0"><small>TEMPO TOTAL DO TREINO</small><strong id="sessionClock" style="font-size:36px;font-variant-numeric:tabular-nums">00:00:00</strong></div>
+  <div class="row" style="flex-wrap:wrap"><button class="primary" id="startSessionBtn" onclick="startSession()">▶ Iniciar treino</button><button class="secondary" id="finishSessionBtn" onclick="finishSession()" disabled>■ Finalizar treino</button></div>
+  <p class="tiny" id="sessionHint">O tempo começa ao iniciar e continua contando durante os descansos.</p>
+</div>
+<div class="card" id="restTimerCard">
+  <div class="row"><h3>⏳ Cronômetro de descanso</h3><span class="tag" id="restStatus">Pronto</span></div>
+  <div class="metric" style="text-align:center;margin:10px 0"><small>TEMPO DE DESCANSO</small><strong id="restClock" style="font-size:36px;font-variant-numeric:tabular-nums">01:30</strong></div>
+  <label for="restDuration">Duração do descanso</label><select id="restDuration" onchange="updateRestPreview()"><option value="30">30 segundos</option><option value="60">1 minuto</option><option value="90" selected>1 minuto e 30 segundos</option><option value="120">2 minutos</option><option value="150">2 minutos e 30 segundos</option><option value="180">3 minutos</option></select>
+  <div class="row" style="flex-wrap:wrap"><button class="primary" id="startRestBtn" onclick="startRest()">▶ Iniciar descanso</button><button class="secondary" id="skipRestBtn" onclick="skipRest()" disabled>Pular descanso</button></div>
+  <p class="tiny" id="restHint">O descanso começa automaticamente ao concluir cada série. O cronômetro geral não para.</p>
+</div>
+<div class="card" id="workoutBox"></div>
+<div class="card"><div class="row"><h3>Treinos concluídos</h3><button class="secondary" onclick="exportSessionsCSV()">Exportar tempos</button></div><div id="sessionHistory" class="tiny">Nenhum treino concluído ainda.</div></div>
+<div class="card"><h3>Orientações</h3><p class="tiny">A maioria das séries: termine com 1–3 repetições em reserva. Compostos: 2–3 min de descanso; isoladores: 60–120 s. Faça aquecimento e use técnica controlada. Interrompa diante de dor aguda, tontura ou falta de ar incomum.</p></div>
+</section>
+
+<section id="dieta" class="page">
+<h2>Alimentação econômica</h2><p class="muted">Base simples com arroz, feijão, ovos, frango, sardinha, soja e alimentos da estação.</p>
+<div class="card"><div class="row"><h3>Meta diária de referência</h3><span class="tag">2.250 kcal</span></div><div class="grid"><div class="metric"><small>PROTEÍNA</small><strong>165 g</strong></div><div class="metric"><small>CARBOIDRATO</small><strong>240 g</strong></div><div class="metric"><small>GORDURA</small><strong>70 g</strong></div><div class="metric"><small>ÁGUA</small><strong>2,5 L*</strong></div></div><p class="tiny">*Referência inicial, ajustar a calor, suor, sede e orientação clínica.</p></div>
+<div class="card"><h3>Exemplo de dia alimentar</h3>
+<div class="meal"><div><b>Café da manhã</b><div class="tiny">2 ovos + 2 fatias de pão + banana</div></div><span class="tag">Econômico</span></div>
+<div class="meal"><div><b>Lanche</b><div class="tiny">250 ml de leite + 30 g de aveia</div></div><span class="tag">Simples</span></div>
+<div class="meal"><div><b>Almoço</b><div class="tiny">120–150 g de frango + arroz + feijão + salada</div></div><span class="tag">Base</span></div>
+<div class="meal"><div><b>Lanche / pré-treino</b><div class="tiny">Iogurte natural ou leite + banana</div></div><span class="tag">Flexível</span></div>
+<div class="meal"><div><b>Jantar</b><div class="tiny">Sardinha ou ovos + arroz/batata + legumes</div></div><span class="tag">Alternativa</span></div>
+<div class="meal"><div><b>Ceia opcional</b><div class="tiny">Leite, iogurte, feijão ou soja, conforme necessidade</div></div><span class="tag">Opcional</span></div>
+<p class="tiny">As porções são ponto de partida, não um cardápio fechado com macros conferidos. O exemplo pode ficar abaixo de 165 g de proteína; ajuste as quantidades de frango, ovos, leite, sardinha ou proteína de soja e confira rótulos/preparo para atingir a meta sem exceder as calorias.</p></div>
+<div class="card"><h3>Substituições econômicas</h3><table><tr><th>Em vez de</th><th>Experimente</th></tr><tr><td>Whey</td><td>Leite, ovos, soja, frango ou sardinha</td></tr><tr><td>Peito de frango caro</td><td>Coxa/sobrecoxa sem pele em promoção</td></tr><tr><td>Batata-doce</td><td>Batata comum, mandioca, arroz ou macarrão</td></tr><tr><td>Frutas caras</td><td>Banana, mamão e fruta da estação</td></tr><tr><td>Salada pronta</td><td>Repolho, cenoura, abóbora e legumes da época</td></tr></table></div>
+</section>
+
+<section id="cardio" class="page">
+<h2>Cardio e recuperação</h2>
+<div class="card"><h3>Plano inicial por ciclo de 8 dias</h3>
+<div class="check"><input type="checkbox" data-check="cardio1"><div><b>Esteira inclinada</b><div class="tiny">20–25 minutos, intensidade moderada</div></div></div>
+<div class="check"><input type="checkbox" data-check="cardio2"><div><b>Esteira inclinada</b><div class="tiny">20–25 minutos, intensidade moderada</div></div></div>
+<div class="check"><input type="checkbox" data-check="cardio3"><div><b>Caminhada ou bicicleta</b><div class="tiny">30 minutos, ritmo confortável</div></div></div>
+</div>
+<div class="card"><h3>Hábitos importantes</h3><ul class="muted"><li>Faça pequenas pausas para caminhar durante o trabalho sentado.</li><li>Procure dormir 7–9 horas, quando possível.</li><li>Não faça cardio intenso se estiver prejudicando a recuperação das pernas.</li><li>Aumente o volume gradualmente, conforme tolerância.</li></ul><p class="tiny">A recomendação geral para adultos é progredir em direção a 150 minutos semanais de atividade moderada, conforme tolerância.</p></div>
+</section>
+
+<section id="evolucao" class="page">
+<h2>Minha evolução</h2><div class="card"><h3>Novo registro</h3>
+<label>Data</label><input id="date" type="date">
+<div class="grid"><div><label>Peso (kg)</label><input id="weight" type="number" step=".1" placeholder="82"></div><div><label>Cintura (cm)</label><input id="waist" type="number" step=".1" placeholder="Medida"></div><div><label>Sono (horas)</label><input id="sleep" type="number" step=".5" placeholder="7.5"></div><div><label>Treinos concluídos neste ciclo</label><select id="done"><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div></div>
+<label>Observações</label><textarea id="notes" rows="2" placeholder="Energia, cargas, dificuldades..."></textarea><button class="primary" onclick="saveEntry()">Salvar registro</button></div>
+<div class="card"><div class="row"><h3>Histórico</h3><button class="secondary" onclick="exportCSV()">Exportar CSV</button></div><div id="history" class="tiny">Ainda não há registros.</div></div>
+<div class="card"><h3>Dados do perfil</h3><p class="tiny">Peso inicial informado: 82 kg · Altura: 173 cm · Idade: 32 anos. Registros ficam salvos neste navegador neste aparelho. Exporte seus dados para manter uma cópia.</p></div>
+</section>
+
+<section id="compras" class="page">
+<h2>Lista de compras econômica</h2><p class="muted">Marque os itens que precisa comprar. Quantidades dependem do orçamento, apetite e número de refeições feitas em casa.</p>
+<div class="card" id="shoppingList"></div>
+<div class="card"><label>Orçamento mensal aproximado (R$)</label><input id="budget" type="number" placeholder="Ex.: 500"><button class="primary" onclick="saveBudget()">Salvar orçamento</button><p id="budgetMsg" class="tiny"></p></div>
+<div class="notice">Compare preço por quilo/unidade, aproveite alimentos da estação, congele porções e evite desperdício. Não é possível estimar um custo local confiável sem preços atuais do seu mercado.</div>
+</section>
+<footer>Projeto Shape 94 · Demonstrações GIF fornecidas pela ExerciseDB / AscendAPI (uso pessoal e educativo) · Consulte profissionais para personalização clínica.</footer>
+</main>
+<div id="restFloat" class="rest-float" style="display:none" role="dialog" aria-label="Cronômetro de descanso">
+ <div class="rest-float-top"><b>⏳ DESCANSO</b><span class="tag">Recuperação</span></div>
+ <div class="rest-float-clock" id="restFloatClock">01:30</div>
+ <div class="rest-float-actions"><button class="primary" onclick="skipRest()">Pular descanso</button><button class="secondary" onclick="minimizeRest()">Minimizar</button></div>
+ <p class="tiny" style="text-align:center;margin:8px 0 0">O cronômetro geral continua contando.</p>
+</div>
+<button id="restMini" class="rest-mini" style="display:none" onclick="restoreRest()">⏳ <span id="restMiniClock">01:30</span> · Abrir</button>
+<nav>
+<button class="active" data-page="inicio" onclick="show('inicio')"><b>⌂</b>Início</button>
+<button data-page="treinos" onclick="show('treinos')"><b>🏋</b>Treinos</button>
+<button data-page="dieta" onclick="show('dieta')"><b>🥗</b>Dieta</button>
+<button data-page="cardio" onclick="show('cardio')"><b>♥</b>Cardio</button>
+<button data-page="evolucao" onclick="show('evolucao')"><b>📈</b>Evolução</button>
+<button data-page="compras" onclick="show('compras')"><b>🛒</b>Compras</button>
+</nav>
+<script>
+const workouts={
+A:[["Supino reto",3,"8–10"],["Supino inclinado com halteres",3,"10–12"],["Remada baixa",3,"8–12"],["Puxada frontal",3,"10–12"],["Elevação lateral",3,"12–15"],["Tríceps corda",2,"10–15"],["Rosca direta",2,"10–12"]],
+B:[["Agachamento",3,"8–10"],["Leg press",3,"10–12"],["Cadeira extensora",3,"12–15"],["Mesa flexora",3,"10–12"],["Panturrilha em pé",4,"12–15"],["Abdominal na polia",3,"12–15"]],
+C:[["Puxada alta",3,"8–12"],["Remada articulada",3,"10–12"],["Supino máquina",3,"10–12"],["Crucifixo máquina",2,"12–15"],["Desenvolvimento com halteres",3,"8–12"],["Rosca martelo",2,"10–12"],["Tríceps na polia",2,"10–15"]],
+D:[["Stiff",3,"8–10"],["Mesa flexora",3,"10–12"],["Elevação pélvica",3,"10–12"],["Afundo",2,"10 cada perna"],["Cadeira extensora",2,"12–15"],["Panturrilha sentado",4,"12–15"],["Prancha",3,"30–45 s"]]};
+const names={A:"Superior 1",B:"Inferior 1",C:"Superior 2",D:"Inferior 2"};
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===id));if(id==='evolucao')renderHistory();if(id==='compras')renderShopping();window.scrollTo(0,0)}
+function renderWorkout(k){
+ let b=document.getElementById('workoutBox');
+ if(activeSession() && activeSession().workout===k){renderRunner();return}
+ b.innerHTML=`<div class="row"><h3>Treino ${k} · ${names[k]}</h3><span class="tag">${workouts[k].length} exercícios</span></div><p class="muted">${workouts[k].map((e,i)=>`${i+1}. ${e[0]} — ${e[1]} séries de ${e[2]}`).join('<br>')}</p><button class="primary" onclick="startWorkout('${k}')">▶ Começar este treino</button>`;
+}
+function startWorkout(k){
+ if(activeSession()){alert('Já existe um treino em andamento. Finalize-o antes de iniciar outro.');return}
+ const now=Date.now();localStorage.setItem(SESSION_KEY,JSON.stringify({id:now,workout:k,startAt:now}));
+ localStorage.setItem('shape94_runner',JSON.stringify({workout:k,exercise:0,set:1,completed:[],phase:'ready'}));
+ document.getElementById('workoutMenu').style.display='none';renderTimers();renderRunner();
+}
+function runnerState(){return readJSON('shape94_runner',null)}
+function saveRunner(st){localStorage.setItem('shape94_runner',JSON.stringify(st))}
+function renderRunner(){
+ const st=runnerState(),box=document.getElementById('workoutBox');
+ if(!st||!activeSession()){box.innerHTML='<h3>Escolha seu treino</h3><p class="muted">Selecione A, B, C ou D acima para começar.</p>';document.getElementById('workoutMenu').style.display='grid';return}
+ const list=workouts[st.workout],ex=list[st.exercise],done=st.completed||[],total=list.reduce((n,x)=>n+x[1],0),finished=done.length;
+ if(st.phase==='finished'){box.innerHTML=`<div class="runner card"><h3>🎉 Treino concluído!</h3><p>Você completou todos os exercícios do Treino ${st.workout} · ${names[st.workout]}.</p><button class="primary" onclick="completeWorkout()">Salvar treino e encerrar</button></div>`;return}
+ const saved=readJSON('lift_'+st.workout,{})[st.workout+'-'+st.exercise]||{};
+ box.innerHTML=`<div class="runner card"><div class="row"><span class="tag">TREINO ${st.workout} · ${names[st.workout]}</span><span class="tiny">Exercício ${st.exercise+1}/${list.length}</span></div><div class="bar" style="margin:12px 0"><span style="width:${Math.round(finished/total*100)}%"></span></div><div class="tiny">PROGRESSO: ${finished} de ${total} séries concluídas</div><div class="exercise-big">${ex[0]}</div><div id="exerciseDemo" class="exercise-demo"><div class="tiny">Carregando demonstração do movimento…</div></div><div class="muted">${ex[1]} séries · ${ex[2]} repetições</div><div class="set-dots">${Array.from({length:ex[1]},(_,i)=>`<span class="set-dot ${i+1<st.set?'done':''}"></span>`).join('')}</div><h3>${st.phase==='rest'?'Descanso em andamento':`Série ${st.set} de ${ex[1]}`}</h3>${st.phase==='rest'?'<p class="muted">Aguarde o cronômetro. Ao terminar, a próxima série ou exercício será liberado automaticamente.</p>':`<div class="runner-fields"><div><label>Carga utilizada (kg)</label><input id="runnerLoad" type="number" step=".5" value="${saved.load||''}" placeholder="Ex.: 40"></div><div><label>Repetições realizadas</label><input id="runnerReps" type="number" min="0" placeholder="Ex.: 10"></div></div><button class="primary runner-action" onclick="completeSet()">✓ Concluir série ${st.set}</button>`}<div class="row" style="margin-top:12px"><button class="secondary" onclick="renderWorkoutList()">Voltar aos treinos</button><button class="secondary" onclick="finishSession()">Finalizar treino</button></div></div>`;
+ renderExerciseGif(ex[0]);
+}
+function renderWorkoutList(){if(activeSession()){alert('O treino atual continua em andamento. Você pode voltar a ele pelo cartão do exercício.');renderRunner();return}document.getElementById('workoutMenu').style.display='grid';document.getElementById('workoutBox').innerHTML='<p class="muted">Escolha o treino que deseja realizar.</p>';}
+function completeSet(){let st=runnerState();if(!st||st.phase!=='ready')return;let load=document.getElementById('runnerLoad').value,reps=document.getElementById('runnerReps').value;if(!reps){alert('Informe quantas repetições realizou antes de concluir a série.');return}let saved=readJSON('lift_'+st.workout,{});saved[st.workout+'-'+st.exercise]={load,reps:(saved[st.workout+'-'+st.exercise]?.reps||'')+(saved[st.workout+'-'+st.exercise]?.reps?'/':'')+reps};localStorage.setItem('lift_'+st.workout,JSON.stringify(saved));st.completed=st.completed||[];st.completed.push({exercise:st.exercise,set:st.set,load,reps,at:Date.now()});st.phase='rest';saveRunner(st);renderRunner();startRest(true);}
+function advanceAfterRest(){let st=runnerState();if(!st||st.phase!=='rest')return;const ex=workouts[st.workout][st.exercise];if(st.set<ex[1])st.set++;else if(st.exercise<workouts[st.workout].length-1){st.exercise++;st.set=1;}else{st.phase='finished';saveRunner(st);renderRunner();playRestAlarm();return}st.phase='ready';saveRunner(st);renderRunner();}
+function completeWorkout(){let st=runnerState();if(!st)return;finishSession(true);localStorage.removeItem('shape94_runner');document.getElementById('workoutMenu').style.display='grid';document.getElementById('workoutBox').innerHTML=`<h3>Treino ${st.workout} concluído! 🎉</h3><p class="muted">Parabéns! Seu tempo foi salvo no histórico.</p>`;}
+
+function saveWorkout(k){let data={};workouts[k].forEach((e,i)=>{let key=k+'-'+i;data[key]={load:document.querySelector(`[data-lift="${key}"]`).value,reps:document.querySelector(`[data-reps="${key}"]`).value}});localStorage.setItem('lift_'+k,JSON.stringify(data));document.getElementById('savedWorkout').textContent='Treino salvo neste aparelho.'}
+// Cronômetros persistentes: usam horários absolutos para continuarem corretos após bloquear a tela ou reabrir o app.
+const SESSION_KEY='shape94_active_session', SESSIONS_KEY='shape94_sessions', REST_KEY='shape94_active_rest';
+let sessionTick=null, restTick=null, audioCtx=null;
+function readJSON(key,fallback){try{return JSON.parse(localStorage.getItem(key)||'null')??fallback}catch(e){return fallback}}
+function fmtTime(totalSeconds){let s=Math.max(0,Math.floor(totalSeconds));let h=Math.floor(s/3600),m=Math.floor((s%3600)/60),r=s%60;return [h,m,r].map(v=>String(v).padStart(2,'0')).join(':')}
+function fmtRest(totalSeconds){let s=Math.max(0,Math.ceil(totalSeconds));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function activeSession(){return readJSON(SESSION_KEY,null)}
+function startSession(){let k='A';startWorkout(k);}
+function finishSession(force=false){let s=activeSession();if(!s)return;if(!force&&!confirm('Finalizar e salvar este treino?'))return;let ended=Date.now(),durationMs=Math.max(0,ended-s.startAt);let list=readJSON(SESSIONS_KEY,[]);list.push({id:s.id,workout:s.workout,startAt:s.startAt,endAt:ended,durationMs});localStorage.setItem(SESSIONS_KEY,JSON.stringify(list));localStorage.removeItem(SESSION_KEY);localStorage.removeItem('shape94_runner');skipRest(false);renderTimers();renderSessionHistory();if(!force){document.getElementById('workoutMenu').style.display='grid';document.getElementById('workoutBox').innerHTML='<p class="muted">Treino encerrado. Escolha outro quando quiser.</p>'}}
+function renderTimers(){let s=activeSession(),running=!!s;document.getElementById('startSessionBtn').style.display='none';document.getElementById('startSessionBtn').disabled=true;document.getElementById('finishSessionBtn').disabled=!running;document.getElementById('sessionStatus').textContent=running?'Em andamento':'Não iniciado';document.getElementById('sessionHint').textContent=running?'Treino '+s.workout+' iniciado às '+new Date(s.startAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'. O relógio segue ativo durante o descanso.':'Inicie o treino para começar a registrar a duração total.';if(sessionTick)clearInterval(sessionTick);const paint=()=>{let current=activeSession();document.getElementById('sessionClock').textContent=current?fmtTime((Date.now()-current.startAt)/1000):'00:00:00'};paint();if(running)sessionTick=setInterval(paint,500);renderRest();}
+function updateRestPreview(){if(!readJSON(REST_KEY,null))document.getElementById('restClock').textContent=fmtRest(Number(document.getElementById('restDuration').value));}
+function startRest(automatic=false){if(!activeSession()){if(!automatic)alert('Inicie o treino antes de começar o descanso.');return}let seconds=Number(document.getElementById('restDuration').value)||90;localStorage.setItem(REST_KEY,JSON.stringify({endsAt:Date.now()+seconds*1000,duration:seconds,automatic}));try{const AC=window.AudioContext||window.webkitAudioContext;if(AC){audioCtx=audioCtx||new AC();if(audioCtx.state==='suspended')audioCtx.resume()}}catch(e){}renderRest()}
+function playRestAlarm(){try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audioCtx=audioCtx||new AC();if(audioCtx.state==='suspended')audioCtx.resume();let now=audioCtx.currentTime;[0,.28,.56].forEach((delay)=>{let osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.type='sine';osc.frequency.value=880;gain.gain.setValueAtTime(.0001,now+delay);gain.gain.exponentialRampToValueAtTime(.18,now+delay+.02);gain.gain.exponentialRampToValueAtTime(.0001,now+delay+.2);osc.connect(gain);gain.connect(audioCtx.destination);osc.start(now+delay);osc.stop(now+delay+.22)})}catch(e){} }
+function minimizeRest(){document.getElementById('restFloat').style.display='none';document.getElementById('restMini').style.display='block'}
+function restoreRest(){document.getElementById('restMini').style.display='none';document.getElementById('restFloat').style.display='block'}
+function hideRestFloat(){document.getElementById('restFloat').style.display='none';document.getElementById('restMini').style.display='none'}
+function skipRest(showStatus=true){let rest=readJSON(REST_KEY,null);localStorage.removeItem(REST_KEY);if(restTick)clearInterval(restTick);restTick=null;hideRestFloat();if(rest?.automatic)advanceAfterRest();if(showStatus)renderRest()}
+function renderRest(){if(restTick)clearInterval(restTick);let rest=readJSON(REST_KEY,null);let start=document.getElementById('startRestBtn'),skip=document.getElementById('skipRestBtn');start.disabled=!activeSession()||!!rest;skip.disabled=!rest;document.getElementById('restStatus').textContent=rest?'Contando':'Pronto';document.getElementById('startRestBtn').style.display='none';if(!rest){hideRestFloat();document.getElementById('restClock').textContent=fmtRest(Number(document.getElementById('restDuration').value)||90);document.getElementById('restHint').textContent=activeSession()?'O descanso começa automaticamente ao concluir cada série. O cronômetro geral continua contando.':'Inicie o treino para liberar o descanso.';return}document.getElementById('restFloat').style.display='block';document.getElementById('restMini').style.display='none';let alarmed=false;const paint=()=>{let current=readJSON(REST_KEY,null);if(!current)return;let remaining=(current.endsAt-Date.now())/1000;if(remaining<=0){document.getElementById('restClock').textContent='00:00';document.getElementById('restFloatClock').textContent='00:00';document.getElementById('restMiniClock').textContent='00:00';localStorage.removeItem(REST_KEY);if(restTick)clearInterval(restTick);restTick=null;hideRestFloat();document.getElementById('restStatus').textContent='Concluído';document.getElementById('restHint').textContent='Descanso finalizado! Preparando a próxima etapa…';document.getElementById('startRestBtn').disabled=false;document.getElementById('skipRestBtn').disabled=true;if(!alarmed){alarmed=true;playRestAlarm();if('vibrate' in navigator)navigator.vibrate([180,100,180]);if(current.automatic){setTimeout(()=>advanceAfterRest(),650)}}return}let clock=fmtRest(remaining);document.getElementById('restClock').textContent=clock;document.getElementById('restFloatClock').textContent=clock;document.getElementById('restMiniClock').textContent=clock;document.getElementById('restHint').textContent='Descanse. O cronômetro geral continua ativo.'};paint();if(readJSON(REST_KEY,null))restTick=setInterval(paint,250)}
+
+// Demonstrações animadas da ExerciseDB V1. Busca por nome (não depende de baixar só a primeira página).
+const exerciseAliases={
+'Supino reto':['barbell bench press','bench press'],'Supino inclinado com halteres':['dumbbell incline bench press','incline dumbbell press','incline bench press'],
+'Remada baixa':['seated cable row','cable seated row','seated row'],'Puxada frontal':['lat pulldown','cable pulldown','wide grip pulldown'],
+'Elevação lateral':['dumbbell lateral raise','lateral raise'],'Tríceps corda':['cable rope triceps pushdown','triceps pushdown','cable triceps pushdown'],
+'Rosca direta':['barbell curl','standing barbell curl','biceps curl'],'Agachamento':['barbell squat',' squat','bodyweight squat'],
+'Leg press':['sled 45 degrees leg press','leg press','lever leg press'],'Cadeira extensora':['lever leg extension','leg extension','machine leg extension'],
+'Mesa flexora':['lying leg curl','lever lying leg curl','leg curl'],'Panturrilha em pé':['standing calf raise','calf raise'],'Abdominal na polia':['cable crunch','kneeling cable crunch'],
+'Remada articulada':['lever seated row','lever row','machine row'],'Supino máquina':['lever chest press','chest press machine','machine chest press'],
+'Crucifixo máquina':['lever pec deck fly','pec deck fly','machine chest fly'],'Desenvolvimento com halteres':['dumbbell shoulder press','seated dumbbell shoulder press'],
+'Rosca martelo':['dumbbell hammer curl','hammer curl'],'Tríceps na polia':['cable triceps pushdown','triceps pushdown'],
+'Stiff':['barbell romanian deadlift','romanian deadlift','dumbbell romanian deadlift'],'Elevação pélvica':['barbell hip thrust','hip thrust'],
+'Afundo':['dumbbell lunge','dumbbell forward lunge','lunge'],'Panturrilha sentado':['seated calf raise','lever seated calf raise'],
+'Prancha':['front plank','plank']};
+let exerciseDbPromise=null;
+function normExercise(v){return String(v||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
+function exerciseRecords(j){if(Array.isArray(j))return j;for(const k of ['data','exercises','results','items'])if(Array.isArray(j?.[k]))return j[k];return []}
+async function requestExerciseSearch(term){const urls=[`https://oss.exercisedb.dev/api/v1/exercises/search?search=${encodeURIComponent(term)}`,`https://oss.exercisedb.dev/api/v1/exercises/search?q=${encodeURIComponent(term)}`];for(const url of urls){try{const r=await fetch(url,{mode:'cors'});if(!r.ok)continue;const j=await r.json(),rows=exerciseRecords(j);if(rows.length)return rows}catch(e){}}return []}
+function bestExerciseMatch(rows,term){const wanted=normExercise(term);let best=null,bestScore=0;for(const x of rows){const n=normExercise(x.name||'');if(!n)continue;let score=n===wanted?100:(n.includes(wanted)||wanted.includes(n)?75:0);if(!score){const a=new Set(wanted.split(' ')),b=new Set(n.split(' '));let common=[...a].filter(t=>b.has(t)&&t.length>2).length;score=common/Math.max(a.size,b.size)*60}if(score>bestScore){best=x;bestScore=score}}return bestScore>=35?best:null}
+async function findExerciseGif(name,force=false){let cache=readJSON('shape94_gif_cache',{}),key=normExercise(name);if(!force&&cache[key]?.url)return cache[key];const terms=exerciseAliases[name]||[name];for(const term of terms){let rows=await requestExerciseSearch(term);let found=bestExerciseMatch(rows,term)||rows.find(x=>x.gifUrl);if(found?.gifUrl){let result={url:found.gifUrl,name:found.name||term,instructions:found.instructions||[]};cache[key]=result;localStorage.setItem('shape94_gif_cache',JSON.stringify(cache));return result}}
+// Última tentativa: catálogo geral. A API V1 pode devolver apenas uma página, por isso é fallback.
+try{if(!exerciseDbPromise)exerciseDbPromise=fetch('https://oss.exercisedb.dev/api/v1/exercises',{mode:'cors'}).then(r=>r.ok?r.json():null).then(exerciseRecords).catch(()=>[]);let rows=await exerciseDbPromise;for(const term of terms){let found=bestExerciseMatch(rows,term);if(found?.gifUrl){let result={url:found.gifUrl,name:found.name||term,instructions:found.instructions||[]};cache[key]=result;localStorage.setItem('shape94_gif_cache',JSON.stringify(cache));return result}}}catch(e){}return null}
+async function renderExerciseGif(name,force=false){let host=document.getElementById('exerciseDemo');if(!host)return;host.innerHTML='<div class="tiny">Buscando animação do exercício…</div>';let result=await findExerciseGif(name,force);if(!document.getElementById('exerciseDemo')||document.getElementById('exerciseDemo')!==host)return;if(result){host.innerHTML=`<img src="${result.url}" alt="Demonstração animada: ${name}" loading="eager"><div class="tiny">Movimento: ${result.name}<br>GIFs: ExerciseDB / AscendAPI</div>`;let img=host.querySelector('img');img.onerror=()=>{host.innerHTML=`<div class="tiny">A animação deste exercício não carregou. Tente novamente.</div><button class="secondary" onclick="renderExerciseGif(${JSON.stringify(name)},true)">Recarregar GIF</button>`}}else{host.innerHTML=`<div class="tiny">Não encontramos uma animação correspondente para este exercício agora. Verifique sua conexão e tente novamente.</div><button class="secondary" onclick="renderExerciseGif(${JSON.stringify(name)},true)">Tentar carregar GIF</button><div class="tiny" style="margin-top:7px"><a href="https://oss.exercisedb.dev/docs" target="_blank" rel="noopener">Biblioteca ExerciseDB</a></div>`}}
+function renderSessionHistory(){let list=readJSON(SESSIONS_KEY,[]).slice().reverse();let el=document.getElementById('sessionHistory');el.innerHTML=list.length?'<table><tr><th>Data</th><th>Treino</th><th>Duração</th></tr>'+list.slice(0,12).map(x=>`<tr><td>${new Date(x.startAt).toLocaleDateString('pt-BR')}</td><td>${x.workout}</td><td>${fmtTime(x.durationMs/1000)}</td></tr>`).join('')+'</table>':'Nenhum treino concluído ainda.'}
+function exportSessionsCSV(){let list=readJSON(SESSIONS_KEY,[]);if(!list.length){alert('Nenhum treino concluído para exportar.');return}let rows=[['Data','Treino','Inicio','Fim','Duracao'],...list.map(x=>[new Date(x.startAt).toLocaleDateString('pt-BR'),x.workout,new Date(x.startAt).toLocaleTimeString('pt-BR'),new Date(x.endAt).toLocaleTimeString('pt-BR'),fmtTime(x.durationMs/1000)])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\n');let blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='tempos_treino_shape94.csv';link.click();URL.revokeObjectURL(url)}
+function entries(){return JSON.parse(localStorage.getItem('shape_entries')||'[]')}
+function saveEntry(){let e={date:document.getElementById('date').value||new Date().toISOString().slice(0,10),weight:document.getElementById('weight').value,waist:document.getElementById('waist').value,sleep:document.getElementById('sleep').value,done:document.getElementById('done').value,notes:document.getElementById('notes').value};if(!e.weight&&!e.waist){alert('Informe pelo menos peso ou cintura.');return}let a=entries();a.push(e);localStorage.setItem('shape_entries',JSON.stringify(a));['weight','waist','sleep','notes'].forEach(id=>document.getElementById(id).value='');renderHistory();updateDash()}
+function renderHistory(){let a=entries().slice().reverse();document.getElementById('history').innerHTML=a.length?'<table><tr><th>Data</th><th>Peso</th><th>Cintura</th><th>Sono</th><th>Treinos</th></tr>'+a.map(x=>`<tr><td>${x.date}</td><td>${x.weight||'—'}</td><td>${x.waist||'—'}</td><td>${x.sleep||'—'}</td><td>${x.done||'—'}</td></tr>`).join('')+'</table>':'Ainda não há registros.'}
+function updateDash(){let a=entries();if(a.length){let last=a[a.length-1];if(last.weight)document.getElementById('dashWeight').textContent=last.weight+' kg'}}
+function exportCSV(){let a=entries();if(!a.length){alert('Ainda não há dados para exportar.');return}let rows=[['Data','Peso kg','Cintura cm','Sono h','Treinos','Observações'],...a.map(x=>[x.date,x.weight,x.waist,x.sleep,x.done,x.notes])];let csv=rows.map(r=>r.map(v=>'"'+String(v||'').replaceAll('"','""')+'"').join(';')).join('\n');let blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});let url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='evolucao_shape94.csv';link.click();URL.revokeObjectURL(url)}
+const foods=["Arroz","Feijão","Ovos","Frango (cortes em promoção)","Sardinha enlatada","Proteína de soja texturizada","Aveia","Leite ou iogurte natural","Banana e frutas da estação","Repolho e cenoura","Legumes da estação/congelados","Batata, mandioca ou macarrão"];
+function renderShopping(){let el=document.getElementById('shoppingList');el.innerHTML=foods.map((f,i)=>`<label class="check"><input type="checkbox" data-food="${i}"><span>${f}</span></label>`).join('');let saved=JSON.parse(localStorage.getItem('shape_foods')||'[]');saved.forEach(i=>{let x=document.querySelector(`[data-food="${i}"]`);if(x)x.checked=true});el.querySelectorAll('input').forEach(x=>x.addEventListener('change',()=>{let arr=[...el.querySelectorAll('input:checked')].map(y=>Number(y.dataset.food));localStorage.setItem('shape_foods',JSON.stringify(arr))}));let b=localStorage.getItem('shape_budget');if(b){document.getElementById('budget').value=b;document.getElementById('budgetMsg').textContent='Orçamento salvo: R$ '+b}}
+function saveBudget(){let v=document.getElementById('budget').value;localStorage.setItem('shape_budget',v);document.getElementById('budgetMsg').textContent=v?'Orçamento salvo: R$ '+v:'Informe um valor.'}
+document.querySelectorAll('[data-check]').forEach(x=>{x.checked=localStorage.getItem(x.dataset.check)==='1';x.addEventListener('change',()=>localStorage.setItem(x.dataset.check,x.checked?'1':'0'))});
+document.getElementById('date').value=new Date().toISOString().slice(0,10);if(activeSession()){document.getElementById('workoutMenu').style.display='none';renderRunner()}else{document.getElementById('workoutMenu').style.display='grid';document.getElementById('workoutBox').innerHTML='<p class="muted">Escolha A, B, C ou D para começar seu treino guiado.</p>'}updateDash();renderHistory();renderTimers();renderSessionHistory();
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(err=>console.warn('Service worker não registrado:',err)));}</script>
+
+<style>
+#s94Auth{position:fixed;inset:0;z-index:1000;background:#0c1218;display:none;overflow:auto;padding:22px 16px}
+#s94Auth .authbox{max-width:520px;margin:5vh auto;background:#151f29;border:1px solid #2b3a47;border-radius:18px;padding:20px}
+#s94Auth h2{margin:0 0 8px}#s94Auth .authmuted{color:#9eacb9;font-size:13px}
+#s94Auth button{margin:5px 4px 5px 0}#s94Auth .authrow{display:flex;gap:8px;flex-wrap:wrap}
+#s94Status{font-size:12px;color:#9eacb9;margin-top:8px}
+#s94Profile{display:none}
+#s94Account{position:fixed;right:12px;top:12px;z-index:10;background:#20382d;color:#7be0a3;border:1px solid #2b3a47;border-radius:30px;padding:7px 10px;font-size:11px}
+</style>
+<button id="s94Account" type="button" onclick="window.shape94OpenAccount()">Conta</button>
+<div id="s94Auth">
+ <div class="authbox">
+  <div class="kicker">PLATAFORMA DE TREINAMENTO</div><div class="brand">SHAPE 94</div>
+  <div id="s94Login">
+   <h2>Acesse sua conta</h2><p class="authmuted">Entre para sincronizar seu treino e sua evolução entre dispositivos.</p>
+   <label>E-mail</label><input id="s94Email" type="email" autocomplete="email" placeholder="seu@email.com">
+   <label>Senha</label><input id="s94Password" type="password" autocomplete="current-password" placeholder="Mínimo de 6 caracteres">
+   <div class="authrow"><button class="primary" onclick="window.shape94SignIn()">Entrar</button><button class="secondary" onclick="window.shape94SignUp()">Criar conta</button></div>
+   <button class="secondary" onclick="window.shape94ResetPassword()">Esqueci minha senha</button>
+  </div>
+  <div id="s94Profile">
+   <h2>Monte seu perfil</h2><p class="authmuted">Essas respostas orientam a primeira versão do seu plano. Você poderá atualizá-las depois.</p>
+   <label>Como deseja ser identificado? (opcional)</label><input id="pName" maxlength="60" placeholder="Seu nome">
+   <label>Idade</label><input id="pAge" type="number" min="16" max="100" placeholder="Ex.: 30">
+   <label>Sexo biológico (usado apenas em estimativas energéticas)</label><select id="pSex"><option value="">Prefiro não informar</option><option value="masculino">Masculino</option><option value="feminino">Feminino</option></select>
+   <div class="authrow"><div style="flex:1"><label>Peso (kg)</label><input id="pWeight" type="number" min="30" max="350" step=".1"></div><div style="flex:1"><label>Altura (cm)</label><input id="pHeight" type="number" min="120" max="230"></div></div>
+   <label>Objetivo</label><select id="pGoal"><option value="hipertrofia">Hipertrofia</option><option value="emagrecimento">Emagrecimento</option><option value="recomposicao">Recomposição corporal</option><option value="condicionamento">Condicionamento</option></select>
+   <label>Experiência</label><select id="pLevel"><option value="iniciante">Iniciante</option><option value="intermediario">Intermediário</option><option value="avancado">Avançado</option></select>
+   <label>Quantos dias por semana pode treinar?</label><select id="pDays"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select>
+   <label>Onde treina?</label><select id="pEquipment"><option value="academia">Academia completa</option><option value="casa">Em casa (halteres/elásticos)</option><option value="peso_corporal">Em casa (peso corporal)</option></select>
+   <label>Orçamento mensal aproximado para alimentação (R$)</label><input id="pBudget" type="number" min="0" placeholder="Opcional">
+   <label>Lesões, dores ou limitações relevantes</label><textarea id="pLimits" rows="2" maxlength="500" placeholder="Descreva ou escreva 'nenhuma'"></textarea>
+   <label>Restrições ou preferências alimentares</label><textarea id="pFood" rows="2" maxlength="500" placeholder="Ex.: sem lactose, vegetariano, alimentos que não consome"></textarea>
+   <button class="primary" onclick="window.shape94SaveProfile()">Salvar perfil e gerar meu plano</button>
+  </div>
+  <div id="s94Status" role="status"></div>
+ </div>
+</div>
+<script type="module" src="./platform.js"></script>
+</body></html>
